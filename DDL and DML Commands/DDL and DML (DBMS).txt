@@ -1,0 +1,196 @@
+SQL*Plus: Release 11.2.0.4.0 Production on Mon Feb 5 14:41:24 2024
+
+Copyright (c) 1982, 2013, Oracle.  All rights reserved.
+
+Enter user-name:  RA2111027010135/RA2111027010135@z2aa1.c0vm8jxyhl5s.us-east-2.rds.amazonaws.com:1521/orcl
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+
+SQL> CREATE TABLE student (
+  2  id int,
+  3  name varchar(15),
+  4  subject varchar(25),
+  5  marks int
+  6  );
+
+Table created.
+
+SQL> insert into student values (&id, '&name', '&subject', &marks);
+Enter value for id: 1
+Enter value for name: Riya
+Enter value for subject: Computer Science
+Enter value for marks: 92
+old   1: insert into student values (&id, '&name', '&subject', &marks)
+new   1: insert into student values (1, 'Riya', 'Computer Science', 92)
+
+1 row created.
+
+SQL> /
+Enter value for id: 2
+Enter value for name: Yash
+Enter value for subject: Maths
+Enter value for marks: 95
+old   1: insert into student values (&id, '&name', '&subject', &marks)
+new   1: insert into student values (2, 'Yash', 'Maths', 95)
+
+1 row created.
+
+SQL> /
+Enter value for id: 3
+Enter value for name: Anurag
+Enter value for subject: Maths
+Enter value for marks: 86
+old   1: insert into student values (&id, '&name', '&subject', &marks)
+new   1: insert into student values (3, 'Anurag', 'Maths', 86)
+
+1 row created.
+
+SQL> /
+Enter value for id: 4
+Enter value for name: Stuti
+Enter value for subject: English
+Enter value for marks: 90
+old   1: insert into student values (&id, '&name', '&subject', &marks)
+new   1: insert into student values (4, 'Stuti', 'English', 90)
+
+1 row created.
+
+SQL> /
+Enter value for id: 5
+Enter value for name: Mansi
+Enter value for subject: Computer Science
+Enter value for marks: 94
+old   1: insert into student values (&id, '&name', '&subject', &marks)
+new   1: insert into student values (5, 'Mansi', 'Computer Science', 94)
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from student;
+
+        ID NAME            SUBJECT                        MARKS
+---------- --------------- ------------------------- ----------
+         1 Riya            Computer Science                  92
+         2 Yash            Maths                             95
+         3 Anurag          Maths                             86
+         4 Stuti           English                           90
+         5 Mansi           Computer Science                  94
+
+SQL> update student set marks = 96
+  2  where name = 'Mansi';
+
+1 row updated.
+
+SQL> select * from student;
+
+        ID NAME            SUBJECT                        MARKS
+---------- --------------- ------------------------- ----------
+         1 Riya            Computer Science                  92
+         2 Yash            Maths                             95
+         3 Anurag          Maths                             86
+         4 Stuti           English                           90
+         5 Mansi           Computer Science                  96
+
+SQL> alter table student add age int;
+
+Table altered.
+
+SQL> select * from student;
+
+        ID NAME            SUBJECT                        MARKS        AGE
+---------- --------------- ------------------------- ---------- ----------
+         1 Riya            Computer Science                  92
+         2 Yash            Maths                             95
+         3 Anurag          Maths                             86
+         4 Stuti           English                           90
+         5 Mansi           Computer Science                  96
+
+SQL> update student set age = 14
+  2  where name = 'Riya';
+
+1 row updated.
+
+SQL> update student set age = 15
+  2  where subject = 'Maths';
+
+2 rows updated.
+
+SQL> update student set age = 14
+  2  where name = 'Stuti';
+
+1 row updated.
+
+SQL> update student set age = 16
+  2  where name = 'Mansi';
+
+1 row updated.
+
+SQL> select * from student;
+
+        ID NAME            SUBJECT                        MARKS        AGE
+---------- --------------- ------------------------- ---------- ----------
+         1 Riya            Computer Science                  92         14
+         2 Yash            Maths                             95         15
+         3 Anurag          Maths                             86         15
+         4 Stuti           English                           90         14
+         5 Mansi           Computer Science                  96         16
+
+SQL> commit;
+
+Commit complete.
+
+SQL> alter table student modify name varchar2(20);
+
+Table altered.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER(38)
+ NAME                                               VARCHAR2(20)
+ SUBJECT                                            VARCHAR2(25)
+ MARKS                                              NUMBER(38)
+ AGE                                                NUMBER(38)
+
+SQL> alter table student drop column age;
+
+Table altered.
+
+SQL> select * from student;
+
+        ID NAME                 SUBJECT                        MARKS
+---------- -------------------- ------------------------- ----------
+         1 Riya                 Computer Science                  92
+         2 Yash                 Maths                             95
+         3 Anurag               Maths                             86
+         4 Stuti                English                           90
+         5 Mansi                Computer Science                  96
+
+SQL> delete from student where name = 'Anurag';
+
+1 row deleted.
+
+SQL> select * from student;
+
+        ID NAME                 SUBJECT                        MARKS
+---------- -------------------- ------------------------- ----------
+         1 Riya                 Computer Science                  92
+         2 Yash                 Maths                             95
+         4 Stuti                English                           90
+         5 Mansi                Computer Science                  96
+
+SQL> truncate table student;
+
+Table truncated.
+
+SQL> select * from student;
+
+no rows selected
+
+SQL> drop table student;
+
+Table dropped.

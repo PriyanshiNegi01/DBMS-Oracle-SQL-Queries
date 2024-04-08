@@ -66,10 +66,6 @@ new   1: insert into student values (5, 'Mansi', 'Computer Science', 94)
 
 1 row created.
 
-SQL> commit;
-
-Commit complete.
-
 SQL> select * from student;
 
         ID NAME            SUBJECT                        MARKS
@@ -138,10 +134,6 @@ SQL> select * from student;
          3 Anurag          Maths                             86         15
          4 Stuti           English                           90         14
          5 Mansi           Computer Science                  96         16
-
-SQL> commit;
-
-Commit complete.
 
 SQL> alter table student modify name varchar2(20);
 

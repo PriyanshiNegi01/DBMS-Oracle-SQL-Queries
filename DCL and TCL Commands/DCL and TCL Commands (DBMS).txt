@@ -1,0 +1,146 @@
+
+SQL*Plus: Release 11.2.0.4.0 Production on Mon Feb 12 13:45:15 2024
+
+Copyright (c) 1982, 2013, Oracle.  All rights reserved.
+
+Enter user-name: RA2111027010135/RA2111027010135@z2aa1.c0vm8jxyhl5s.us-east-2.rds.amazonaws.com:1521/orcl
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+
+SQL> GRANT ALL ON student TO RA2111027010152;
+
+Grant succeeded.
+
+SQL> SELECT * FROM RA2111027010152.stud1;
+
+        ID NAME       SECTI      MARKS
+---------- ---------- ----- ----------
+         1 molly      A             90
+         2 raj        B             80
+         3 Tina       A             97
+         4 Simran     C             89
+         5 prem       D             90
+
+SQL> REVOKE ALL ON student FROM RA2111027010152;
+
+Revoke succeeded.
+
+SQL> select * from student;
+
+        ID NAME            SUBJECT                        MARKS
+---------- --------------- ------------------------- ----------
+         1 Riya            Maths                             92
+
+SQL> insert into student values (&id,'&name','&subject',&marks);
+Enter value for id: 2
+Enter value for name: Yash
+Enter value for subject: Computer
+Enter value for marks: 86
+old   1: insert into student values (&id,'&name','&subject',&marks)
+new   1: insert into student values (2,'Yash','Computer ',86)
+
+1 row created.
+
+SQL> /
+Enter value for id: 3
+Enter value for name: Mansi
+Enter value for subject: Maths
+Enter value for marks: 90
+old   1: insert into student values (&id,'&name','&subject',&marks)
+new   1: insert into student values (3,'Mansi','Maths',90)
+
+1 row created.
+
+SQL> select * from student;
+
+        ID NAME            SUBJECT                        MARKS
+---------- --------------- ------------------------- ----------
+         1 Riya            Maths                             92
+         2 Yash            Computer                          86
+         3 Mansi           Maths                             90
+
+SQL> commit;
+
+Commit complete.
+
+SQL> insert into student values (&id,'&name','&subject',&marks);
+Enter value for id: 4
+Enter value for name: Anurag
+Enter value for subject: English
+Enter value for marks: 84
+old   1: insert into student values (&id,'&name','&subject',&marks)
+new   1: insert into student values (4,'Anurag','English',84)
+
+1 row created.
+
+SQL> savepoint s1;
+
+Savepoint created.
+
+SQL> insert into student values (&id,'&name','&subject',&marks);
+Enter value for id: 5
+Enter value for name: Priyanshi
+Enter value for subject: Maths
+Enter value for marks: 94
+old   1: insert into student values (&id,'&name','&subject',&marks)
+new   1: insert into student values (5,'Priyanshi','Maths',94)
+
+1 row created.
+
+SQL> /
+Enter value for id: 6
+Enter value for name: Stuti
+Enter value for subject: English
+Enter value for marks: 94
+old   1: insert into student values (&id,'&name','&subject',&marks)
+new   1: insert into student values (6,'Stuti','English',94)
+
+1 row created.
+
+SQL> savepoint s2;
+
+Savepoint created.
+
+SQL> insert into student values (7, 'Aiushi','Computer',88);
+
+1 row created.
+
+SQL> savepoint s3;
+
+Savepoint created.
+
+SQL> select * from student;
+
+        ID NAME            SUBJECT                        MARKS
+---------- --------------- ------------------------- ----------
+         1 Riya            Maths                             92
+         2 Yash            Computer                          86
+         3 Mansi           Maths                             90
+         4 Anurag          English                           84
+         5 Priyanshi       Maths                             94
+         6 Stuti           English                           94
+         7 Aiushi          Computer                          88
+
+7 rows selected.
+
+SQL> rollback to s2;
+
+Rollback complete.
+
+SQL> select * from student;
+
+        ID NAME            SUBJECT                        MARKS
+---------- --------------- ------------------------- ----------
+         1 Riya            Maths                             92
+         2 Yash            Computer                          86
+         3 Mansi           Maths                             90
+         4 Anurag          English                           84
+         5 Priyanshi       Maths                             94
+         6 Stuti           English                           94
+
+6 rows selected.
+
+SQL> commit;
+
+Commit complete.

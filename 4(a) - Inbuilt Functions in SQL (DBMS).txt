@@ -1,0 +1,140 @@
+SQL*Plus: Release 11.2.0.4.0 Production on Mon Mar 11 13:50:13 2024
+
+Copyright (c) 1982, 2013, Oracle.  All rights reserved.
+
+Enter user-name: RA2111027010135/RA2111027010135@z2aa1.c0vm8jxyhl5s.us-east-2.rds.amazonaws.com:1521/ORCL
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+
+SQL> SELECT lower('DBMS') FROM DUAL;
+
+LOWE
+----
+dbms
+
+SQL> SELECT upper('dbms') FROM DUAL;
+
+UPPE
+----
+DBMS
+
+SQL> SELECT initcap('dbms lab') FROM DUAL;
+
+INITCAP(
+--------
+Dbms Lab
+
+SQL> SELECT concat('DBMS','lab') FROM DUAL;
+
+CONCAT(
+-------
+DBMSlab
+
+SQL> SELECT length('DBMS') FROM DUAL;
+
+LENGTH('DBMS')
+--------------
+             4
+
+SQL> SELECT lpad('DBMS',8,'lab') FROM DUAL;
+
+LPAD('DB
+--------
+lablDBMS
+
+SQL> SELECT rpad('DBMS',8,'lab') FROM DUAL;
+
+RPAD('DB
+--------
+DBMSlabl
+
+SQL> SELECT trim('D' FROM 'DBMS') FROM DUAL;
+
+TRI
+---
+BMS
+
+SQL> SELECT replace('DBMS lab is fun','lab','class') FROM DUAL;
+
+REPLACE('DBMSLABI
+-----------------
+DBMS class is fun
+
+SQL> SELECT instr('DBMS lab', 'lab') FROM DUAL;
+
+INSTR('DBMSLAB','LAB')
+----------------------
+                     6
+
+SQL> SELECT substr('DBMS lab is on Monday',6) FROM DUAL;
+
+SUBSTR('DBMSLABI
+----------------
+lab is on Monday
+
+
+SQL> SELECT round(24.452,1) FROM DUAL;
+
+ROUND(24.452,1)
+---------------
+           24.5
+
+SQL> SELECT trunc(24.452,1) FROM DUAL;
+
+TRUNC(24.452,1)
+---------------
+           24.4
+
+SQL> SELECT mod(14,4) FROM DUAL;
+
+ MOD(14,4)
+----------
+         2
+
+SQL> SELECT MONTHS_BETWEEN(
+  2  TO_DATE('02-02-2024','DD-MM-YYYY'),
+  3  TO_DATE('14-05-2024','DD-MM-YYYY')) "Months"
+  4  FROM DUAL;
+
+    Months
+----------
+-3.3870968
+
+SQL> SELECT ADD_MONTHS(SYSDATE,2) FROM DUAL;
+
+ADD_MONTH
+---------
+11-MAY-24
+
+SQL> SELECT NEXT_DAY(SYSDATE,'Wednesday') FROM DUAL;
+
+NEXT_DAY(
+---------
+13-MAR-24
+
+SQL> SELECT LAST_DAY(SYSDATE) FROM DUAL;
+
+LAST_DAY(
+---------
+31-MAR-24
+
+SQL> SELECT ROUND(SYSDATE,'MONTH') FROM DUAL;
+
+ROUND(SYS
+---------
+01-MAR-24
+
+SQL> SELECT TRUNC(SYSDATE,'MONTH') FROM DUAL;
+
+TRUNC(SYS
+---------
+01-MAR-24
+
+SQL> SELECT TO_CHAR(SYSDATE,'MONTH') FROM DUAL;
+
+TO_CHAR(SYSDATE,'MONTH')
+------------------------------------
+MARCH
+
+SQL>

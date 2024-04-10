@@ -1,0 +1,130 @@
+SQL*Plus: Release 11.2.0.4.0 Production on Sat Feb 17 13:45:41 2024
+
+Copyright (c) 1982, 2013, Oracle.  All rights reserved.
+
+Enter user-name: RA2111027010135/RA2111027010135@z2aa1.c0vm8jxyhl5s.us-east-2.rds.amazonaws.com:1521/ORCL
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+
+SQL> SELECT * FROM student;
+
+        ID NAME            SUBJECT                        MARKS
+---------- --------------- ------------------------- ----------
+         1 Riya            Maths                             92
+         2 Yash            Computer                          86
+         3 Mansi           Maths                             90
+         4 Anurag          English                           84
+         5 Priyanshi       Maths                             94
+         6 Stuti           English                           94
+
+6 rows selected.
+
+SQL> SELECT COUNT(*) FROM student;
+
+  COUNT(*)
+----------
+         6
+
+SQL> SELECT DISTINCT(subject) FROM student;
+
+SUBJECT
+-------------------------
+Maths
+English
+Computer
+
+SQL> SELECT SUM(marks) FROM student;
+
+SUM(MARKS)
+----------
+       540
+
+SQL> SELECT AVG(marks) FROM student;
+
+AVG(MARKS)
+----------
+        90
+
+SQL> SELECT MIN(marks) FROM student;
+
+MIN(MARKS)
+----------
+        84
+
+SQL> SELECT MAX(marks) FROM student;
+
+MAX(MARKS)
+----------
+        94
+
+SQL> SELECT name FROM student
+  2
+SQL> SELECT * FROM student
+  2
+SQL> SELECT * FROM student
+  2  WHERE subject = 'Maths'
+  3  ORDER BY name ASC;
+
+        ID NAME            SUBJECT                        MARKS
+---------- --------------- ------------------------- ----------
+         3 Mansi           Maths                             90
+         5 Priyanshi       Maths                             94
+         1 Riya            Maths                             92
+
+SQL> SELECT * FROM student
+  2  WHERE name LIKE 'P%';
+
+        ID NAME            SUBJECT                        MARKS
+---------- --------------- ------------------------- ----------
+         5 Priyanshi       Maths                             94
+
+SQL> SELECT * FROM student
+  2  WHERE name LIKE '_a%';
+
+        ID NAME            SUBJECT                        MARKS
+---------- --------------- ------------------------- ----------
+         2 Yash            Computer                          86
+         3 Mansi           Maths                             90
+
+SQL> SELECT * FROM student
+  2  WHERE name LIKE '%i';
+
+        ID NAME            SUBJECT                        MARKS
+---------- --------------- ------------------------- ----------
+         3 Mansi           Maths                             90
+         5 Priyanshi       Maths                             94
+         6 Stuti           English                           94
+
+SQL> SELECT * FROM student
+  2  WHERE marks > 90;
+
+        ID NAME            SUBJECT                        MARKS
+---------- --------------- ------------------------- ----------
+         1 Riya            Maths                             92
+         5 Priyanshi       Maths                             94
+         6 Stuti           English                           94
+
+SQL> SELECT AVG(marks) AS "Average Marks" FROM student;
+
+Average Marks
+-------------
+           90
+
+SQL> SELECT subject, MAX(marks) FROM student
+  2  GROUP BY subject;
+
+SUBJECT                   MAX(MARKS)
+------------------------- ----------
+Maths                             94
+English                           94
+Computer                          86
+
+SQL> SELECT subject, MAX(marks) FROM student
+  2  GROUP BY subject
+  3  HAVING MAX(marks)>90;
+
+SUBJECT                   MAX(MARKS)
+------------------------- ----------
+Maths                             94
+English                           94

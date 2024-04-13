@@ -1,0 +1,166 @@
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Mar 4 14:04:27 2024
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Enter user-name: RA2111027010135/RA2111027010135@z2aa1.c0vm8jxyhl5s.us-east-2.rds.amazonaws.com:1521/orcl
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+
+SQL> select * from student;
+
+        ID NAME            SUBJECT                        MARKS
+---------- --------------- ------------------------- ----------
+         1 Riya            Maths                             92
+         2 Yash            Computer                          86
+         3 Mansi           Maths                             90
+         4 Anurag          English                           84
+         5 Priyanshi       Maths                             94
+         6 Stuti           English                           94
+
+6 rows selected.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER(38)
+ NAME                                               VARCHAR2(15)
+ SUBJECT                                            VARCHAR2(25)
+ MARKS                                              NUMBER(38)
+
+SQL> ALTER TABLE student
+  2  ADD PRIMARY KEY(ID);
+
+Table altered.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER(38)
+ NAME                                               VARCHAR2(15)
+ SUBJECT                                            VARCHAR2(25)
+ MARKS                                              NUMBER(38)
+
+SQL> CREATE TABLE grade(ID int PRIMARY KEY, GRADE varchar(1));
+
+Table created.
+
+SQL> INSERT INTO grade VALUES (&ID, '&GRADE');
+Enter value for id: 1
+Enter value for grade: A
+old   1: INSERT INTO grade VALUES (&ID, '&GRADE')
+new   1: INSERT INTO grade VALUES (1, 'A')
+
+1 row created.
+
+SQL> /
+Enter value for id: 2
+Enter value for grade: B
+old   1: INSERT INTO grade VALUES (&ID, '&GRADE')
+new   1: INSERT INTO grade VALUES (2, 'B')
+
+1 row created.
+
+SQL> /
+Enter value for id: 3
+Enter value for grade: B
+old   1: INSERT INTO grade VALUES (&ID, '&GRADE')
+new   1: INSERT INTO grade VALUES (3, 'B')
+
+1 row created.
+
+SQL> /
+Enter value for id: 4
+Enter value for grade: B
+old   1: INSERT INTO grade VALUES (&ID, '&GRADE')
+new   1: INSERT INTO grade VALUES (4, 'B')
+
+1 row created.
+
+SQL> /
+Enter value for id: 5
+Enter value for grade: A
+old   1: INSERT INTO grade VALUES (&ID, '&GRADE')
+new   1: INSERT INTO grade VALUES (5, 'A')
+
+1 row created.
+
+SQL> /
+Enter value for id: 6
+Enter value for grade: A
+old   1: INSERT INTO grade VALUES (&ID, '&GRADE')
+new   1: INSERT INTO grade VALUES (6, 'A')
+
+1 row created.
+
+SQL> SELECT * FROM grade;
+
+        ID G
+---------- -
+         1 A
+         2 B
+         3 B
+         4 B
+         5 A
+         6 A
+
+6 rows selected.
+
+
+SQL> ALTER TABLE grade ADD CONSTRAINT G FOREIGN KEY(ID) REFERENCES stude
+nt(ID);
+
+Table altered.
+
+SQL> INSERT INTO grade VALUES (7, 'A');
+INSERT INTO grade VALUES (7, 'A')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (RA2111027010135.G) violated - parent key not
+found
+
+SQL> ALTER TABLE student
+  2  MODIFY marks DEFAULT 0;
+
+Table altered.
+
+SQL> INSERT INTO student (id, name, subject) VALUES (8,'YASHIKA', 'MATHS');
+
+1 row created.
+
+SQL> SELECT * FROM student;
+
+        ID NAME            SUBJECT                        MARKS
+---------- --------------- ------------------------- ----------
+         8 YASHIKA         MATHS                              0
+         1 Riya            Maths                             92
+         2 Yash            Computer                          86
+         3 Mansi           Maths                             90
+         4 Anurag          English                           84
+         5 Priyanshi       Maths                             94
+         6 Stuti           English                           94
+
+7 rows selected.
+
+SQL> ALTER TABLE student
+  2  ADD CONSTRAINT UPerson unique (name);
+
+Table altered.
+
+SQL> INSERT INTO student VALUES (7, 'Riya', 'English', 90);
+INSERT INTO student VALUES (7, 'Riya', 'English', 90)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (RA2111027010135.UPERSON) violated
+
+
+SQL> ALTER TABLE student
+  2  ADD CHECK (ID<=60);
+
+Table altered.
+
+SQL> INSERT INTO student VALUES (72, 'Aditya', 'English', 90);
+INSERT INTO student VALUES (72, 'Aditya', 'English', 90)
+*
+ERROR at line 1:
+ORA-02290: check constraint (RA2111027010135.SYS_C006489) violated

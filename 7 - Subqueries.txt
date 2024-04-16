@@ -1,0 +1,105 @@
+SQL*Plus: Release 11.2.0.4.0 Production on Mon Mar 18 14:10:20 2024
+
+Copyright (c) 1982, 2013, Oracle.  All rights reserved.
+
+Enter user-name: RA2111027010135/RA2111027010135@z2aa1.c0vm8jxyhl5s.us-east-2.rds.amazonaws.com:1521/ORCL
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+
+SQL> SELECT * FROM student;
+
+        ID NAME            SUBJECT                        MARKS
+---------- --------------- ------------------------- ----------
+         1 Riya            Maths                             92
+         2 Yash            Computer                          86
+         3 Mansi           Maths                             90
+         4 Anurag          English                           84
+         5 Priyanshi       Maths                             94
+         6 Stuti           English                           94
+
+6 rows selected.
+
+SQL> SELECT id, name FROM student
+  2  WHERE marks = (SELECT MAX(marks) FROM student);
+
+        ID NAME
+---------- ---------------
+         5 Priyanshi
+         6 Stuti
+
+SQL> SELECT id, name, subject FROM student
+  2  WHERE marks < (SELECT AVG(marks) FROM student);
+
+        ID NAME            SUBJECT
+---------- --------------- -------------------------
+         2 Yash            Computer
+         4 Anurag          English
+
+SQL> SELECT id, name, subject FROM student
+  2  WHERE marks = (SELECT AVG(marks) FROM student);
+
+        ID NAME            SUBJECT
+---------- --------------- -------------------------
+         3 Mansi           Maths
+
+SQL> SELECT id, name, subject FROM student
+  2  WHERE marks <= (SELECT AVG(marks) FROM student);
+
+        ID NAME            SUBJECT
+---------- --------------- -------------------------
+         2 Yash            Computer
+         3 Mansi           Maths
+         4 Anurag          English
+
+SQL> SELECT name, subject FROM student
+  2  WHERE id IN (SELECT id FROM student WHERE marks = 94);
+
+NAME            SUBJECT
+--------------- -------------------------
+Priyanshi       Maths
+Stuti           English
+
+SQL> SELECT name, subject FROM student
+  2  WHERE id IN (SELECT id FROM student WHERE id = 2 or id = 3);
+
+NAME            SUBJECT
+--------------- -------------------------
+Yash            Computer
+Mansi           Maths
+
+SQL> SELECT id, name, subject FROM student
+  2  WHERE marks > ALL(SELECT marks FROM student WHERE id = 2 OR id = 3);
+
+        ID NAME            SUBJECT
+---------- --------------- -------------------------
+         1 Riya            Maths
+         5 Priyanshi       Maths
+         6 Stuti           English
+
+
+SQL> SELECT name, subject FROM student
+  2  WHERE marks < ALL(SELECT marks FROM student WHERE id = 2 OR id = 3)
+;
+
+NAME            SUBJECT
+--------------- -------------------------
+Anurag          English
+
+SQL> SELECT id, name, subject FROM student
+  2  WHERE marks = ANY(SELECT marks FROM student WHERE id = 2 OR id = 3);
+
+        ID NAME            SUBJECT
+---------- --------------- -------------------------
+         2 Yash            Computer
+         3 Mansi           Maths
+
+SQL> SELECT id, name, subject FROM student
+  2  WHERE marks < ANY(SELECT marks FROM student WHERE id = 2 OR id = 3);
+
+        ID NAME            SUBJECT
+---------- --------------- -------------------------
+         4 Anurag          English
+         2 Yash            Computer
+
+SQL>

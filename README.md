@@ -7,7 +7,7 @@
 
 4. (a) Inbuilt functions in SQL (b) Advanced SELECT statements
 5. Integrity Constraints in SQL
-6. ER Diagram
+6. ER Diagram (own project related)
 7. Subqueries
 8. JOINS
 9. PL/SQL

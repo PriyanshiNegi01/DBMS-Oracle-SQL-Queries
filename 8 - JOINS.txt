@@ -1,0 +1,217 @@
+RA2111027010135/RA2111027010135@z2aa1.c0vm8jxyhl5s.us-east-2.rds.amazonaws.com:1521/orcl
+
+
+CREATE TABLE PRODUCTS(PRODUCTID INT,PRODUCTNAME VARCHAR(20),CATEGORYID INT,PRICE INT);
+
+INSERT INTO PRODUCTS VALUES(&PRODUCTID,'&PRODUCTNAME',&CATEGORYID,
+&PRICE);
+
+--------------------------
+For the PRODUCTS table:
+
+ProductID: 1, ProductName: "Laptop", CategoryID: 1, Price: 1000
+ProductID: 2, ProductName: "Smartphone", CategoryID: 1, Price: 800
+ProductID: 3, ProductName: "Headphones", CategoryID: 2, Price: 50
+ProductID: 4, ProductName: "Keyboard", CategoryID: 2, Price: 30
+ProductID: 5, ProductName: "Desk Lamp", CategoryID: 3, Price: 20
+--------------------------
+
+CREATE TABLE CATEGORIES(CATEGORYID INT,CATEGORYNAME VARCHAR(20),DESCRIPTION VARCHAR(50));
+
+INSERT INTO CATEGORIES VALUES(&CATEGORYID,'&CATEGORYNAME','&DESCRIPTION');
+
+--------------------------
+For the CATEGORIES table:
+
+CategoryID: 1, CategoryName: "Electronics", Description: "Devices powered by electricity"
+CategoryID: 2, CategoryName: "Accessories", Description: "Additional items to complement main devices"
+CategoryID: 3, CategoryName: "Home & Office", Description: "Items for use in home or office environments"
+--------------------------
+
+SQL> SELECT * FROM PRODUCTS;
+
+ PRODUCTID PRODUCTNAME          CATEGORYID      PRICE
+---------- -------------------- ---------- ----------
+         1 LAPTOP                        1      30000
+         2 SMARTPHONE                    1      20000
+         3 HEADPHONES                    2       2000
+         4 KEYBOARD                      2       1500
+         5 DESK LAMP                     3        450
+
+SQL> SELECT * FROM CATEGORIES;
+
+CATEGORYID CATEGORYNAME
+---------- --------------------
+DESCRIPTION
+--------------------------------------------------
+         1 ELECTRONICS
+DEVICES POWERED BY ELECTRICITY
+
+         2 ACCESSORIES
+ADDITIONAL ITEMS TO COMPLEMENT MAIN DEVICES
+
+         3 HOME AND OFFICE
+ITEMS USED IN HOME AND OFFICE ENVIRONMENTS
+
+
+SQL> SELECT ProductID, ProductName, CategoryName
+  2  FROM Products
+  3  INNER JOIN Categories ON Products.CategoryID = Categories.CategoryID;
+
+ PRODUCTID PRODUCTNAME          CATEGORYNAME
+---------- -------------------- --------------------
+         1 LAPTOP               ELECTRONICS
+         2 SMARTPHONE           ELECTRONICS
+         3 HEADPHONES           ACCESSORIES
+         4 KEYBOARD             ACCESSORIES
+         5 DESK LAMP            HOME AND OFFICE
+
+SQL> SELECT ProductName, CategoryName
+  2  FROM Products
+  3  FULL OUTER JOIN Categories ON Products.CategoryID = Categories.CategoryID
+  4  WHERE Categories.CategoryID = 1;
+
+PRODUCTNAME          CATEGORYNAME
+-------------------- --------------------
+LAPTOP               ELECTRONICS
+SMARTPHONE           ELECTRONICS
+
+SQL> SELECT ProductID, ProductName, Price, CategoryName
+  2  FROM Products
+  3  LEFT OUTER JOIN Categories ON Products.CategoryID = Categories.CategoryID
+  4  WHERE Categories.CategoryID = 3;
+
+ PRODUCTID PRODUCTNAME               PRICE CATEGORYNAME
+---------- -------------------- ---------- --------------------
+         5 DESK LAMP                   450 HOME AND OFFICE
+
+SQL> SELECT ProductName, Price, CategoryName
+  2  FROM Products
+  3  RIGHT OUTER JOIN Categories ON Products.CategoryID = Categories.CategoryID
+  4  WHERE Categories.CategoryID = 2;
+
+PRODUCTNAME               PRICE CATEGORYNAME
+-------------------- ---------- --------------------
+HEADPHONES                 2000 ACCESSORIES
+KEYBOARD                   1500 ACCESSORIES
+
+SQL> SELECT A.ProductName AS ProductName1, B.ProductName AS ProductName2, A.CategoryID
+  2  FROM Products A, Products B
+  3  WHERE A.ProductID <> B.ProductID
+  4  AND A.CategoryID = B.CategoryID;
+
+PRODUCTNAME1         PRODUCTNAME2         CATEGORYID
+-------------------- -------------------- ----------
+SMARTPHONE           LAPTOP                        1
+LAPTOP               SMARTPHONE                    1
+KEYBOARD             HEADPHONES                    2
+HEADPHONES           KEYBOARD                      2
+
+SQL> SELECT ProductID, ProductName, CategoryName
+  2  FROM Products
+  3  NATURAL JOIN Categories;
+
+ PRODUCTID PRODUCTNAME          CATEGORYNAME
+---------- -------------------- --------------------
+         1 LAPTOP               ELECTRONICS
+         2 SMARTPHONE           ELECTRONICS
+         3 HEADPHONES           ACCESSORIES
+         4 KEYBOARD             ACCESSORIES
+         5 DESK LAMP            HOME AND OFFICE
+
+SQL> SELECT Products.ProductName, Categories.CategoryName
+  2  FROM Products
+  3  CROSS JOIN Categories;
+
+PRODUCTNAME          CATEGORYNAME
+-------------------- --------------------
+LAPTOP               ELECTRONICS
+SMARTPHONE           ELECTRONICS
+HEADPHONES           ELECTRONICS
+KEYBOARD             ELECTRONICS
+DESK LAMP            ELECTRONICS
+LAPTOP               ACCESSORIES
+SMARTPHONE           ACCESSORIES
+HEADPHONES           ACCESSORIES
+KEYBOARD             ACCESSORIES
+DESK LAMP            ACCESSORIES
+LAPTOP               HOME AND OFFICE
+
+PRODUCTNAME          CATEGORYNAME
+-------------------- --------------------
+SMARTPHONE           HOME AND OFFICE
+HEADPHONES           HOME AND OFFICE
+KEYBOARD             HOME AND OFFICE
+DESK LAMP            HOME AND OFFICE
+
+15 rows selected.
+
+SQL> SELECT Products.ProductName, Categories.CategoryName
+  2  FROM Products
+  3  CROSS JOIN Categories
+  4  WHERE Categories.CategoryID = 1;
+
+PRODUCTNAME          CATEGORYNAME
+-------------------- --------------------
+LAPTOP               ELECTRONICS
+SMARTPHONE           ELECTRONICS
+HEADPHONES           ELECTRONICS
+KEYBOARD             ELECTRONICS
+DESK LAMP            ELECTRONICS
+
+SQL> SELECT Products.ProductName, Categories.CategoryName
+  2  FROM Products
+  3  CROSS JOIN Categories
+  4  WHERE Products.CategoryID = Categories.CategoryID;
+
+PRODUCTNAME          CATEGORYNAME
+-------------------- --------------------
+LAPTOP               ELECTRONICS
+SMARTPHONE           ELECTRONICS
+HEADPHONES           ACCESSORIES
+KEYBOARD             ACCESSORIES
+DESK LAMP            HOME AND OFFICE
+
+SQL> SELECT Products.ProductName, Categories.CategoryName
+  2  FROM Products
+  3  CROSS JOIN Categories
+  4  WHERE Products.CategoryID = 1;
+
+PRODUCTNAME          CATEGORYNAME
+-------------------- --------------------
+LAPTOP               ELECTRONICS
+LAPTOP               ACCESSORIES
+LAPTOP               HOME AND OFFICE
+SMARTPHONE           ELECTRONICS
+SMARTPHONE           ACCESSORIES
+SMARTPHONE           HOME AND OFFICE
+
+// non-equi join
+SQL> SELECT A.ProductName, B.CategoryID
+  2  FROM Products A, Products B
+  3  WHERE A.ProductID < B.ProductID;
+
+PRODUCTNAME          CATEGORYID
+-------------------- ----------
+LAPTOP                        1
+LAPTOP                        2
+LAPTOP                        2
+LAPTOP                        3
+SMARTPHONE                    2
+SMARTPHONE                    2
+SMARTPHONE                    3
+HEADPHONES                    2
+HEADPHONES                    3
+KEYBOARD                      3
+
+SQL> SELECT A.ProductName, B.CategoryID
+  2  FROM Products A, Products B
+  3  WHERE A.ProductID < B.ProductID
+  4  FETCH FIRST 4 ROWS ONLY;
+
+PRODUCTNAME          CATEGORYID
+-------------------- ----------
+LAPTOP                        1
+LAPTOP                        2
+SMARTPHONE                    2
+LAPTOP                        2

@@ -3,7 +3,7 @@
 2. DML Commands
 3. DCL Commands and TCL Commands
 
-![image](https://github.com/PriyanshiNegi01/DBMS/assets/121029180/b0384f12-5465-497d-afe9-2727ebf7745b)
+![image](https://github.com/PriyanshiNegi01/DBMS/assets/121029180/dac302d6-60aa-456a-9729-6de5f76b7c36)
 
 4. (a) Inbuilt functions in SQL (b) Advanced SELECT statements
 5. Integrity Constraints in SQL

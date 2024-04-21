@@ -1,4 +1,6 @@
 # DBMS
+### Link for details of each command: https://www.w3schools.com/sql/
+
 1. DDL Commands
 2. DML Commands
 3. DCL Commands and TCL Commands

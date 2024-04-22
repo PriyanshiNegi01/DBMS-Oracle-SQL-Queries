@@ -12,5 +12,5 @@
 6. ER Diagram (own project related)
 7. Subqueries
 8. JOINS
-9. PL/SQL Basic Commands
+9. PL/SQL Procedures
 10. PL/SQL

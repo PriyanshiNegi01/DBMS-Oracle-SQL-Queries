@@ -1,0 +1,119 @@
+SET SERVEROUTPUT ON;
+
+-- PROCEDURES
+-- Program finds the minimum of two values.
+
+SQL> DECLARE
+  2     a number;
+  3     b number;
+  4     c number;
+  5  PROCEDURE findMin(x IN number, y IN number, z OUT number) IS
+  6  BEGIN
+  7     IF x < y THEN
+  8        z:= x;
+  9     ELSE
+ 10        z:= y;
+ 11     END IF;
+ 12  END;
+ 13  BEGIN
+ 14     a:= 21;
+ 15     b:= 40;
+ 16     findMin(a, b, c);
+ 17     dbms_output.put_line(' Minimum of (21, 40) : ' || c);
+ 18  END;
+ 19  /
+Minimum of (21, 40) : 21
+
+PL/SQL procedure successfully completed.
+
+
+-- Procedure computes the square of value of a passed value
+
+SQL> DECLARE
+  2     a number;
+  3  PROCEDURE squareNum(x IN OUT number) IS
+  4  BEGIN
+  5    x := x * x;
+  6  END;
+  7  BEGIN
+  8     a:= 4;
+  9     squareNum(a);
+ 10     dbms_output.put_line(' Square of (4): ' || a);
+ 11  END;
+ 12  /
+Square of (4): 16
+
+PL/SQL procedure successfully completed.
+
+
+-- FUNCTION CREATION
+-- Eg 1:
+
+SQL> SELECT * FROM student;
+
+        ID NAME            SUBJECT                        MARKS
+---------- --------------- ------------------------- ----------
+         1 Riya            Maths                             92
+         2 Yash            Computer                          86
+         3 Mansi           Maths                             90
+         4 Anurag          English                           84
+         5 Priyanshi       Maths                             94
+         6 Stuti           English                           94
+
+6 rows selected.
+
+SQL> CREATE OR REPLACE FUNCTION totalStudents
+  2  RETURN number IS
+  3     total number(2) := 0;
+  4  BEGIN
+  5     SELECT count(*) into total
+  6     FROM student;
+  7
+  8     RETURN total;
+  9  END;
+ 10  /
+
+Function created.
+
+-- FUNCTION CALLING
+
+SQL> DECLARE
+  2     s number(2);
+  3  BEGIN
+  4     s := totalStudents();
+  5     dbms_output.put_line('Total no. of Students: ' || s);
+  6  END;
+  7  /
+Total no. of Students: 6
+
+PL/SQL procedure successfully completed.
+
+
+-- Eg 2: Declaring, Defining, and Invoking a Simple PL/SQL Function that computes and returns the maximum of two values.
+
+SQL> DECLARE
+  2     a number;
+  3     b number;
+  4     c number;
+  5  FUNCTION findMax(x IN number, y IN number)
+  6  RETURN number
+  7  IS
+  8      z number;
+  9  BEGIN
+ 10     IF x > y THEN
+ 11        z:= x;
+ 12     ELSE
+ 13        Z:= y;
+ 14     END IF;
+ 15     RETURN z;
+ 16  END;
+ 17  BEGIN
+ 18     a:= 24;
+ 19     b:= 45;
+ 20     c := findMax(a, b);
+ 21     dbms_output.put_line(' Maximum of (24,45): ' || c);
+ 22  END;
+ 23  /
+Maximum of (24,45): 45
+
+PL/SQL procedure successfully completed.

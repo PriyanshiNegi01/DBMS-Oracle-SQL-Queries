@@ -1,0 +1,53 @@
+-- TRIGGERS
+
+SQL> SELECT * FROM student;
+
+        ID NAME            SUBJECT                        MARKS
+---------- --------------- ------------------------- ----------
+         1 Riya            Maths                             92
+         2 Yash            Computer                          86
+         3 Mansi           Maths                             90
+         4 Anurag          English                           84
+         5 Priyanshi       Maths                             94
+         6 Stuti           English                           94
+
+6 rows selected.
+
+SQL> CREATE OR REPLACE TRIGGER display_marks_changes
+  2  BEFORE DELETE OR INSERT OR UPDATE ON student
+  3  FOR EACH ROW
+  4  WHEN (NEW.ID > 0)
+  5  DECLARE
+  6     marks_diff number;
+  7  BEGIN
+  8     marks_diff := :NEW.marks  - :OLD.marks;
+  9     dbms_output.put_line('Old marks: ' || :OLD.marks);
+ 10     dbms_output.put_line('New marks: ' || :NEW.marks);
+ 11     dbms_output.put_line('Marks difference: ' || marks_diff);
+ 12  END;
+ 13  /
+
+Trigger created.
+
+
+-- Eg 1: Update (DML) operation on the Students table. The UPDATE statement will update an existing record in the table −
+
+SQL> UPDATE student
+  2  SET marks = marks + 4
+  3  WHERE id = 2;
+Old marks: 86
+New marks: 90
+Marks difference: 4
+
+1 row updated.
+
+
+-- Eg 2: Insert (DML) operation
+
+SQL> INSERT INTO student (id, name, subject, marks)
+  2  VALUES (7, 'Kriti', 'Computer', 88 );
+Old marks:
+New marks: 88
+Marks difference:
+
+1 row created.

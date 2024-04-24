@@ -1,0 +1,74 @@
+-- IMPLICIT CURSOR
+
+SQL> SELECT * FROM STUDENT;
+
+        ID NAME            SUBJECT                        MARKS
+---------- --------------- ------------------------- ----------
+         7 Kriti           Computer                          88
+         1 Riya            Maths                             92
+         2 Yash            Computer                          90
+         3 Mansi           Maths                             90
+         4 Anurag          English                           84
+         5 Priyanshi       Maths                             94
+         6 Stuti           English                           94
+
+7 rows selected.
+
+SQL> DECLARE
+  2       total_rows number(2);
+  3  BEGIN
+  4       UPDATE student
+  5       SET marks = marks + 1;
+  6       IF sql%notfound THEN
+  7          dbms_output.put_line('no students selected');
+  8       ELSIF sql%found THEN
+  9          total_rows := sql%rowcount;
+ 10          dbms_output.put_line( total_rows || ' students selected ');
+ 11       END IF;
+ 12  END;
+ 13    /
+
+7 students selected
+
+PL/SQL procedure successfully completed.
+
+SQL> SELECT * FROM STUDENT;
+
+        ID NAME            SUBJECT                        MARKS
+---------- --------------- ------------------------- ----------
+         7 Kriti           Computer                          89
+         1 Riya            Maths                             93
+         2 Yash            Computer                          91
+         3 Mansi           Maths                             91
+         4 Anurag          English                           85
+         5 Priyanshi       Maths                             95
+         6 Stuti           English                           95
+
+7 rows selected.
+
+-- EXPLICIT CURSOR
+
+SQL> DECLARE
+  2     s_id student.id%type;
+  3     s_name student.name%type;
+  4     CURSOR s_students is
+  5        SELECT id, name FROM student;
+  6  BEGIN
+  7     OPEN s_students;
+  8     LOOP
+  9     FETCH s_students into s_id, s_name;
+ 10        EXIT WHEN s_students%notfound;
+ 11        dbms_output.put_line(s_id || ' ' || s_name);
+ 12     END LOOP;
+ 13     CLOSE s_students;
+ 14  END;
+ 15  /
+7 Kriti
+1 Riya
+2 Yash
+3 Mansi
+4 Anurag
+5 Priyanshi
+6 Stuti
+
+PL/SQL procedure successfully completed.

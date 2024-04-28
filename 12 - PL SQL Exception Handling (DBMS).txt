@@ -1,0 +1,22 @@
+-- EXCEPTION HANDLING
+
+
+SQL> DECLARE
+  2     s_id student.id%type := 10;
+  3     s_name student.name%type;
+  4  BEGIN
+  5     SELECT  name INTO  s_name
+  6     FROM student
+  7     WHERE id = s_id;
+  8     DBMS_OUTPUT.PUT_LINE ('Name: '||  s_name);
+  9
+ 10  EXCEPTION
+ 11     WHEN no_data_found THEN
+ 12        dbms_output.put_line('No such student!');
+ 13     WHEN others THEN
+ 14        dbms_output.put_line('Error!');
+ 15  END;
+ 16  /
+No such student!
+
+PL/SQL procedure successfully completed.

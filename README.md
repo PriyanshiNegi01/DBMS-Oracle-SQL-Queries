@@ -14,3 +14,4 @@
 8. JOINS
 9. PL/SQL Procedures and Functions
 10. PL/SQL Triggers
+11. PL/SQL Cursors

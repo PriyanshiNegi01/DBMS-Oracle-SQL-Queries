@@ -1,5 +1,5 @@
-# DBMS
-### Link for details of each command: https://www.w3schools.com/sql/
+# DBMS  
+The above files contain the code and their corresponding outputs. All the queries are written in Oracle SQL.  
 
 1. DDL Commands
 2. DML Commands
@@ -15,3 +15,5 @@
 9. PL/SQL Procedures and Functions
 10. PL/SQL Triggers
 11. PL/SQL Cursors - Implicit and Explicit
+
+### For more details on each command, visit: [W3Schools SQL Tutorial](https://www.w3schools.com/sql/)

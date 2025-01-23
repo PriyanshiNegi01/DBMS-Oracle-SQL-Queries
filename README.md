@@ -16,4 +16,6 @@ The above files contain the code and their corresponding outputs. All the querie
 10. PL/SQL Triggers
 11. PL/SQL Cursors - Implicit and Explicit
 
+---
+
 ### For more details on each command, visit: [W3Schools SQL Tutorial](https://www.w3schools.com/sql/)

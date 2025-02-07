@@ -5,7 +5,7 @@ The above files contain the code and their corresponding outputs. All the querie
 2. DML Commands
 3. DCL Commands and TCL Commands
 
-![image](https://github.com/PriyanshiNegi01/DBMS/assets/121029180/dac302d6-60aa-456a-9729-6de5f76b7c36)
+![image](https://github.com/PriyanshiNegi01/DBMS-Oracle-SQL-Queries/blob/main/SQL%20Commands%20Flowchart.png)
 
 4. (a) Inbuilt functions in SQL (b) Advanced SELECT statements
 5. Integrity Constraints in SQL

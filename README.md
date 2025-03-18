@@ -1,5 +1,5 @@
 # DBMS (Database Management System)
-The above files contain the code and their corresponding outputs. All the queries are written in Oracle SQL.  
+The above files contain the Oracle SQL queries and their corresponding outputs.
 
 1. DDL Commands
 2. DML Commands
